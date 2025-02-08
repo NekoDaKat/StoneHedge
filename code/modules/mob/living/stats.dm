@@ -71,7 +71,7 @@
 /mob/living/proc/calculate_shard_slots()
 	if(!mind)
 		return
-	shard_slots_max = 3 + shard_points_bonus
+	shard_slots_max = shard_slots_base + shard_slots_bonus
 
 /mob/living/proc/init_faith()
 	set_patron(/datum/patron/godless)

@@ -29,6 +29,11 @@
 	var/attunement_points_max = 0 //how many magic items can you wear, magic items cost 1 to 5
 	var/attunement_points_used = 0 //adjusted when equipping magic items
 	var/attunement_points_bonus = 0 //adjusted based on special roles, an artificer or antagonist should have this bonus, NOBODY ELSE...
+	var/attunement_points_base = 10 //no longer based on int. no more cheese. change here to tweak balance
+	var/shard_slots_max = 0 //shards aren't based on int either now. cry about it
+	var/shard_slots_used = 0 //most shards cost 1; OP shards up by 2 or 3. inconsequential shards cost 0.
+	var/shard_slots_bonus = 0 //special roles, maybe seelies to give them something actually good to gloat about for once
+	var/shard_slots_base = 3 //relentless and undying each cost 2. most characters thus get one of each at most
 	var/spell_slots = 0
 	var/spell_slots_used = 0 //only spells that are learned by non spawn means.
 	var/spell_slots_bonus = 0
@@ -36,7 +41,7 @@
 /mob/living/proc/calculate_attunement_points()
 	if(!mind)
 		return
-	attunement_points_max = max(STAINT - 4 + mind.get_skill_level(/datum/skill/magic/arcane) + attunement_points_bonus, 0) //never less than 0
+	attunement_points_max = attunement_points_base + mind.get_skill_level(/datum/skill/magic/arcane) + attunement_points_bonus
 
 /mob/living/proc/check_attunement_points()
 	if(attunement_points_used > attunement_points_max)
@@ -62,6 +67,11 @@
 	var/mob/living/target = owner
 	var/mob/living/carbon/M = target
 	M.add_nausea(5) //it's a lot, but get the fucking items off. That's the point.
+
+/mob/living/proc/calculate_shard_slots()
+	if(!mind)
+		return
+	shard_slots_max = 3 + shard_points_bonus
 
 /mob/living/proc/init_faith()
 	set_patron(/datum/patron/godless)

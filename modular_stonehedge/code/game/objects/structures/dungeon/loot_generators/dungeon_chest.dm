@@ -394,7 +394,9 @@
 				/obj/item/book/granter/trait/acrobat=40,
 				/obj/item/book/granter/trait/succubus=13,
 				/obj/item/riddleofsteel=13,
-				/obj/item/clothing/neck/roguetown/talkstone=13
+				/obj/item/clothing/neck/roguetown/talkstone=13,
+				/obj/item/book/granter/trait/war/undying=7,
+				/obj/item/book/granter/trait/war/relentless=7
 			)
 	if(loot == null)
 		log_runtime("Some stupid RETARD put the loot_type of [src] wrong at [get_area(src)], x[src.x], y[src.y], z[src.z]") //must keep the roguetown tradition.

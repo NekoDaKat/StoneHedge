@@ -41,7 +41,7 @@
 
 
 /obj/item/book/granter/attack_self(mob/living/user)
-	if(user.attunement_points_used + attunement_cost > user.attunement_points_max)
+	if(user.shard_slots_used + attunement_cost > user.shard_slots_max)
 		to_chat(user, span_warning("A sharp arcyne pain stops me from using this currently!"))
 		return FALSE
 	if(reading)
@@ -95,7 +95,7 @@
 	sellprice = 20
 	drop_sound = 'sound/items/gem.ogg'
 	pickup_sound =  list('sound/vo/mobs/ghost/whisper (1).ogg','sound/vo/mobs/ghost/whisper (2).ogg','sound/vo/mobs/ghost/whisper (3).ogg')
-	attunement_cost = 3
+	attunement_cost = 1
 
 /obj/item/book/granter/trait/already_known(mob/user)
 	if(!granted_trait)
@@ -110,7 +110,7 @@
 	playsound(user, pick('sound/vo/mobs/ghost/whisper (1).ogg','sound/vo/mobs/ghost/whisper (2).ogg','sound/vo/mobs/ghost/whisper (3).ogg'), 30, TRUE)
 
 /obj/item/book/granter/trait/on_reading_finished(mob/living/user)
-	if((user.attunement_points_max - user.attunement_points_used) + attunement_cost > 0)
+	if((user.shard_slots_max - user.shard_slots_used) + attunement_cost > 0)
 		. = ..()
 		to_chat(user, "<span class='notice'>The shard dims, granting you knowledge of [traitname]!</span>")
 		if(!HAS_TRAIT(user, granted_trait))
@@ -129,8 +129,7 @@
 			var/datum/crafting_recipe/R = crafting_recipe_type
 			user.mind.teach_crafting_recipe(crafting_recipe_type)
 			to_chat(user,"<span class='notice'>You learned how to make [initial(R.name)].</span>")
-		user.attunement_points_used += attunement_cost
-		user.check_attunement_points()
+		user.shard_slots_used += attunement_cost
 		onlearned(user)
 	else
 		to_chat(user, "<span class='notice'>The shard refuses me, I can not attune to more..</span>")
@@ -174,14 +173,14 @@
 	granted_trait2 = TRAIT_BLOODLOSS_IMMUNE
 	traitname = "the undying"
 	remarks = list("<span class ='colossus'>Curse, bless, me now with your fierce tears, I pray.</span>", "<span class ='colossus'>Rage, rage against the dying of the light.</span>", "<span class ='colossus'>Grave men, near death, who see with blinding sight.</span>", "<span class ='colossus'>Do not go gentle into that good night.</span>",)
-	attunement_cost = 5
+	attunement_cost = 2
 
 /obj/item/book/granter/trait/war/relentless
 	name = "Fragment of the Relentless"
 	granted_trait = TRAIT_NOROGSTAM
 	traitname = "the relentless"
 	remarks = list("<span class ='colossus'>Death can have me, when I am done.", "<span class ='colossus'>Rip and tear.", "<span class ='colossus'>This is where we hold them. This is where they die.", "<span class ='colossus'>Let go of everything.", "<span class ='colossus'>No surrender. No retreat.</span>",)
-	attunement_cost = 5
+	attunement_cost = 2
 
 /obj/item/book/granter/trait/acrobat
 	name = "Fragment of the Acrobat"
@@ -201,7 +200,7 @@
 	sellprice = 50
 	traitname = "the succubus"
 	remarks = list("<font color='#b028fffb'>They like what they see.", "<font color='#b028fffb'>I can't wait to hear you scream.", "<font color='#b028fffb'>So many hearts to break, so little time.","<font color='#b028fffb'>Without pain, how would they know pleasure?</font>",)
-	attunement_cost = 2
+	attunement_cost = 0
 
 /obj/item/book/granter/trait/north
 	name = "Fragment of the North"
@@ -211,7 +210,7 @@
 	sellprice = 150
 	traitname = "the north"
 	remarks = list("<font color='#28d8fffb'>It is important to stay warm.", "<font color='#28d8fffb'>Sail em high.", "<font color='#28d8fffb'>Plug the holes of your ship with a finger.","<font color='#28d8fffb'>Just follow the North Star.</font>",)
-	attunement_cost = 2
+	attunement_cost = 0
 ///ACTION BUTTONS///
 
 /obj/item/book/granter/action
